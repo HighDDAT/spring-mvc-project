@@ -5,7 +5,7 @@
 <configuration>
 
     <typeAliases>
-    	<package name="com.spring.mvcboard"/>
+    	<typeAlias type="com.spring.mvcboard.article.domain.ArticleDTO" alias="ArticleDTO"/>
     </typeAliases>
 
 </configuration>

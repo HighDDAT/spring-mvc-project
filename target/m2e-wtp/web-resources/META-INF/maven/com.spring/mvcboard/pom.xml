@@ -217,7 +217,7 @@
 	
 	
     <build>
-        <finalName>myProject</finalName>
+        <finalName>mvcboard</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
