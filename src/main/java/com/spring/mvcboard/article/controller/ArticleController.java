@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.spring.mvcboard.article.domain.ArticleDTO;
+import com.spring.mvcboard.article.domain.ArticleVO;
 import com.spring.mvcboard.article.service.ArticleService;
 
 @Controller
@@ -38,12 +38,12 @@ public class ArticleController {
 	
 	// 등록 처리
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(ArticleDTO articleDTO,
+	public String writePOST(ArticleVO articleVO,
 	                        RedirectAttributes redirectAttributes) throws Exception {
 
 	    log.info("write POST...");
-	    log.info(articleDTO.toString());
-	    articleService.create(articleDTO);
+	    log.info(articleVO.toString());
+	    articleService.create(articleVO);
 	    redirectAttributes.addFlashAttribute("msg", "regSuccess");
 
 	    return "redirect:/article/list";
@@ -83,11 +83,11 @@ public class ArticleController {
 	
 	// 수정 처리
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyPOST(ArticleDTO articleDTO,
+	public String modifyPOST(ArticleVO articleVO,
 	                         RedirectAttributes redirectAttributes) throws Exception {
 
 	    log.info("modifyPOST fowarding");
-	    articleService.update(articleDTO);
+	    articleService.update(articleVO);
 	    redirectAttributes.addFlashAttribute("msg", "modSuccess");
 
 	    return "redirect:/article/list";

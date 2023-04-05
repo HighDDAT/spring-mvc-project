@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.spring.mvcboard.article.domain.ArticleDTO;
+import com.spring.mvcboard.article.domain.ArticleVO;
 import com.spring.mvcboard.article.persistence.ArticleDAO;
 
 @Service
@@ -20,18 +20,18 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public void create(ArticleDTO articleDTO) throws Exception {
-		articleDAO.create(articleDTO);
+	public void create(ArticleVO articleVO) throws Exception {
+		articleDAO.create(articleVO);
 	}
 
 	@Override
-	public ArticleDTO read(Integer articleNo) throws Exception {
+	public ArticleVO read(Integer articleNo) throws Exception {
 		return articleDAO.read(articleNo);
 	}
 
 	@Override
-	public void update(ArticleDTO articleDTO) throws Exception {
-		articleDAO.update(articleDTO);
+	public void update(ArticleVO articleVO) throws Exception {
+		articleDAO.update(articleVO);
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<ArticleDTO> listAll() throws Exception {
+	public List<ArticleVO> listAll() throws Exception {
 		return articleDAO.listAll();
 	}
 	

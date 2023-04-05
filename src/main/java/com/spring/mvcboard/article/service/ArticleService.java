@@ -2,18 +2,18 @@ package com.spring.mvcboard.article.service;
 
 import java.util.List;
 
-import com.spring.mvcboard.article.domain.ArticleDTO;
+import com.spring.mvcboard.article.domain.ArticleVO;
 
 public interface ArticleService {
 
-	void create(ArticleDTO articleDTO) throws Exception;
+	void create(ArticleVO articleVO) throws Exception;
 
-	ArticleDTO read(Integer articleNo) throws Exception;
+	ArticleVO read(Integer articleNo) throws Exception;
 
-    void update(ArticleDTO articleDTO) throws Exception;
+    void update(ArticleVO articleVO) throws Exception;
 
     void delete(Integer articleNo) throws Exception;
 
-    List<ArticleDTO> listAll() throws Exception;
+    List<ArticleVO> listAll() throws Exception;
     
 }

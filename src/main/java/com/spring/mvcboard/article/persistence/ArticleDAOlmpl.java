@@ -4,7 +4,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-import com.spring.mvcboard.article.domain.ArticleDTO;
+import com.spring.mvcboard.article.domain.ArticleVO;
 
 @Repository
 public class ArticleDAOlmpl implements ArticleDAO {
@@ -19,18 +19,18 @@ public class ArticleDAOlmpl implements ArticleDAO {
 	}
 
 	@Override
-	public void create(ArticleDTO articleDTO) throws Exception {
-		sqlSession.insert(NAMESPACE + ".create", articleDTO);
+	public void create(ArticleVO articleVO) throws Exception {
+		sqlSession.insert(NAMESPACE + ".create", articleVO);
 	}
 
 	@Override
-	public ArticleDTO read(Integer articleNo) throws Exception {
+	public ArticleVO read(Integer articleNo) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + ".read", articleNo);
 	}
 
 	@Override
-	public void update(ArticleDTO articleDTO) throws Exception {
-		sqlSession.update(NAMESPACE + ".update", articleDTO);
+	public void update(ArticleVO articleVO) throws Exception {
+		sqlSession.update(NAMESPACE + ".update", articleVO);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class ArticleDAOlmpl implements ArticleDAO {
 	}
 
 	@Override
-	public List<ArticleDTO> listAll() throws Exception {
+	public List<ArticleVO> listAll() throws Exception {
 		return sqlSession.selectList(NAMESPACE + ".listAll");
 	}
 

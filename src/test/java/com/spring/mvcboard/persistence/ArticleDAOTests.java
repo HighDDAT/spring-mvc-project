@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.spring.mvcboard.article.domain.ArticleDTO;
+import com.spring.mvcboard.article.domain.ArticleVO;
 import com.spring.mvcboard.article.persistence.ArticleDAO;
 
 import lombok.extern.log4j.Log4j;
@@ -21,7 +21,7 @@ public class ArticleDAOTests {
 	
 	@Test
     public void testCreate() throws Exception {
-        ArticleDTO article = new ArticleDTO();
+        ArticleVO article = new ArticleVO();
         article.setTitle("새 글 작성 테스트 제목");
         article.setContent("새 글 작성 테스트 내용");
         article.setWriter("새 글 작성 테스트 작성자");
@@ -35,7 +35,7 @@ public class ArticleDAOTests {
 
     @Test
     public void testUpdate() throws Exception {
-    	ArticleDTO article = new ArticleDTO();
+    	ArticleVO article = new ArticleVO();
         article.setArticleNo(1);
         article.setTitle("글 수정 테스트 제목");
         article.setContent("글 수정 테스트 내용");
