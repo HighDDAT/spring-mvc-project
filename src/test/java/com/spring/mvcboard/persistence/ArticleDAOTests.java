@@ -1,5 +1,7 @@
 package com.spring.mvcboard.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.spring.mvcboard.article.domain.ArticleVO;
 import com.spring.mvcboard.article.persistence.ArticleDAO;
+import com.spring.mvcboard.commons.paging.Criteria;
 
 import lombok.extern.log4j.Log4j;
 
@@ -45,6 +48,33 @@ public class ArticleDAOTests {
     @Test
     public void testDelete() throws Exception {
         articleDAO.delete(1);
+    }
+    
+    // 페이징 테스트
+    @Test
+    public void testListPaging() throws Exception {
+
+        int page = 1;
+
+        List<ArticleVO> articles = articleDAO.listPaging(page);
+
+        for (ArticleVO article : articles) {
+            log.info(article.getArticleNo() + ":" + article.getTitle());
+        }
+
+    }
+    
+    @Test
+    public void testListCriteria() throws Exception {
+        Criteria criteria = new Criteria();
+        criteria.setPage(3);
+        criteria.setPerPageNum(20);
+
+        List<ArticleVO> articles = articleDAO.listCriteria(criteria);
+
+        for (ArticleVO article : articles) {
+            log.info(article.getArticleNo() + " : " + article.getTitle());
+        }
     }
 
 }

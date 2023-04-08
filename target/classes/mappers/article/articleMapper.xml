@@ -66,6 +66,49 @@
         ]]>
     </select>
 
+	<!-- 페이징 LIMIT : 페이지당 10개 출력 -->
+	<select id="listPaging" resultMap="ArticleResultMap">
+	    <![CDATA[
+	    SELECT
+	        article_no,
+	        title,
+	        content,
+	        writer,
+	        regdate,
+	        view_cnt
+	    FROM tb_article
+	    WHERE article_no > 0
+	    ORDER BY article_no DESC, regdate DESC
+	    LIMIT #{page}, 10
+	    ]]>
+	</select>
+	
+	<select id="listCriteria" resultMap="ArticleResultMap">
+	    <![CDATA[
+	    SELECT
+	        article_no,
+	        title,
+	        content,
+	        writer,
+	        regdate,
+	        view_cnt
+	    FROM tb_article
+	    WHERE article_no > 0
+	    ORDER BY article_no DESC, regdate DESC
+	    LIMIT #{pageStart}, #{perPageNum}
+	    ]]>
+	</select>
+	
+	<!-- 페이징 번호 계산 -->
+	<select id="countArticles" resultType="int">
+	    <![CDATA[
+	    SELECT
+	        COUNT(article_no)
+	    FROM tb_article
+	    WHERE article_no > 0
+	    ]]>
+	</select>
+
     <resultMap id="ArticleResultMap" type="ArticleVO">
         <id property="articleNo" column="article_no"/>
         <result property="title" column="title" />
