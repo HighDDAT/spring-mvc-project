@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -115,6 +116,7 @@ public class ArticleController {
 	    return "/article/list_criteria";
 	}
 	
+	// paging list
 	@RequestMapping(value = "/listPaging", method = RequestMethod.GET)
 	public String listPaging(Model model, Criteria criteria) throws Exception {
 	    log.info("listPaging fowarding");
@@ -128,5 +130,58 @@ public class ArticleController {
 	    model.addAttribute("pageMaker", pageMaker);
 
 	    return "/article/list_paging";
+	}
+	
+	// paing read
+	@RequestMapping(value = "/readPaging", method = RequestMethod.GET)
+	public String readPaging(@RequestParam("articleNo") int articleNo,
+	                         @ModelAttribute("criteria") Criteria criteria,
+	                         Model model) throws Exception {
+		log.info("readPaging fowarding");
+	    model.addAttribute("article", articleService.read(articleNo));
+
+	    return "/article/read_paging";
+	}
+	
+	// paing modify
+	@RequestMapping(value = "/modifyPaging", method = RequestMethod.GET)
+	public String modifyGETPaging(@RequestParam("articleNo") int articleNo,
+	                              @ModelAttribute("criteria") Criteria criteria,
+	                              Model model) throws Exception {
+	    log.info("modifyGetPaging forwarding");
+	    
+	    model.addAttribute("article", articleService.read(articleNo));
+
+	    return "/article/modify_paging";
+	}
+	
+	@RequestMapping(value = "/modifyPaging", method = RequestMethod.POST)
+	public String modifyPOSTPaging(ArticleVO articleVO,
+	                               Criteria criteria,
+	                               RedirectAttributes redirectAttributes) throws Exception {
+	    log.info("modifyPOSTPaging forwarding");
+	    
+	    articleService.update(articleVO);
+	    redirectAttributes.addAttribute("page", criteria.getPage());
+	    redirectAttributes.addAttribute("perPageNum", criteria.getPerPageNum());
+	    redirectAttributes.addFlashAttribute("msg", "modSuccess");
+
+	    return "redirect:/article/listPaging";
+	}
+	
+	// paing remove
+	@RequestMapping(value = "/removePaging", method = RequestMethod.POST)
+	public String removePaging(@RequestParam("articleNo") int articleNo,
+	                           Criteria criteria,
+	                           RedirectAttributes redirectAttributes) throws Exception {
+	    log.info("removePaging forwarding");
+	    
+	    articleService.delete(articleNo);
+	    
+	    redirectAttributes.addAttribute("page", criteria.getPage());
+	    redirectAttributes.addAttribute("perPageNum", criteria.getPerPageNum());
+	    redirectAttributes.addFlashAttribute("msg", "delSuccess");
+
+	    return "redirect:/article/listPaging";
 	}
 }
