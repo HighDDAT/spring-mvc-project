@@ -29,11 +29,43 @@
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
-      <ul class="sidebar-menu" data-widget="tree">
-         <li class="header">메뉴</li>
-		    <li class="active"><a href="${path}/article/write"><i class="fa fa-edit"></i> <span>게시글 작성</span></a></li>
-		    <li><a href="${path}/article/list"><i class="fa fa-list"></i> <span>게시글 목록</span></a></li>
-      </ul>
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">게시판</li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-edit"></i> <span>Board (basic)</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="${path}/article/write"><i class="fa fa-pencil"></i> Write </a></li>
+                    <li><a href="${path}/article/list"><i class="fa fa-list"></i> List </a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-edit"></i> <span>Board (paging)</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="${path}/article/paging/write"><i class="fa fa-pencil"></i> Write </a></li>
+                    <li><a href="${path}/article/paging/list"><i class="fa fa-list"></i> List </a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-edit"></i> <span>Board (paging+search)</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="${path}/article/paging/search/write"><i class="fa fa-pencil"></i> Write </a></li>
+                    <li><a href="${path}/article/paging/search/list"><i class="fa fa-list"></i> List </a></li>
+                </ul>
+            </li>
+
+        </ul>
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

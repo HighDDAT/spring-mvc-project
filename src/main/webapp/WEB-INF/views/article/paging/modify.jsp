@@ -6,16 +6,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
 
-<%@ include file="../include/head.jsp"%>
+<%@ include file="../../include/head.jsp"%>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
   <!-- Main Header -->
-  <%@ include file="../include/main_header.jsp"%>
+  <%@ include file="../../include/main_header.jsp"%>
   
   <!-- Left side column. contains the logo and sidebar -->
-  <%@ include file="../include/left_column.jsp"%>
+  <%@ include file="../../include/left_column.jsp"%>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -35,13 +35,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <section class="content container-fluid">
 
       <div class="col-lg-12">
-	    <form role="form" id="writeForm" method="post" action="${path}/article/modify">
+	    <form role="form" id="writeForm" method="post" action="${path}/article/paging/modify">
 	        <div class="box box-primary">
 	            <div class="box-header with-border">
-	                <h3 class="box-title">게시글 작성</h3>
+	                <h3 class="box-title">게시글 작성(페이징 처리된 URL)</h3>
 	            </div>
 	            <div class="box-body">
 	                <input type="hidden" name="articleNo" value="${article.articleNo}">
+					<input type="hidden" name="page" value="${criteria.page}">
+					<input type="hidden" name="perPageNum" value="${criteria.perPageNum}">
 	                <div class="form-group">
 	                    <label for="title">제목</label>
 	                    <input class="form-control" id="title" name="title" placeholder="제목을 입력해주세요" value="${article.title}">
@@ -72,7 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </div>
   <!-- /.content-wrapper -->
 
-  <%@ include file="../include/main_footer.jsp"%>
+  <%@ include file="../../include/main_footer.jsp"%>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -153,7 +155,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- ./wrapper -->
 
-<%@ include file = "../include/plugin_js.jsp" %>
+<%@ include file = "../../include/plugin_js.jsp" %>
 
 <script>
 $(document).ready(function () {
@@ -170,7 +172,7 @@ $(document).ready(function () {
     });
 
     $(".listBtn").on("click", function () {
-        self.location = "/article/list"
+    	self.location = "/article/paging/list?page=${criteria.page}&perPageNum=${criteria.perPageNum}";
     });
 
 });
