@@ -1,5 +1,8 @@
 package com.spring.mvcboard.commons.paging;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -54,5 +57,31 @@ public class PageMaker {
                 .build();
 
         return uriComponents.toUriString();
+    }
+    
+    // 페이지 이동 URI 수정
+    // 검색한 게시글의 목록 정보를 유지
+    public String makeSearch(int page) {
+
+        UriComponents uriComponents = UriComponentsBuilder.newInstance()
+                .queryParam("page", page)
+                .queryParam("pagePageNum", criteria.getPerPageNum())
+                .queryParam("searchType", ((SearchCriteria) criteria).getSearchType())
+                .queryParam("keyword", encoding(((SearchCriteria) criteria).getKeyword()))
+                .build();
+
+        return uriComponents.toUriString();
+    }
+
+    private String encoding(String keyword) {
+        if (keyword == null || keyword.trim().length() == 0) {
+            return "";
+        }
+
+        try {
+            return URLEncoder.encode(keyword, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return "";
+        }
     }
 }
