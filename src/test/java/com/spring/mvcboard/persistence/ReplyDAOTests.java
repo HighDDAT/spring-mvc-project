@@ -1,5 +1,7 @@
 package com.spring.mvcboard.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -7,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.spring.mvcboard.commons.paging.Criteria;
 import com.spring.mvcboard.reply.domain.ReplyVO;
 import com.spring.mvcboard.reply.persistence.ReplyDAO;
 
@@ -54,6 +57,21 @@ public class ReplyDAOTests {
     public void testReplyDelete() throws Exception {
 
         replyDAO.delete(3);
+
+    }
+    
+    @Test
+    public void testReplyPaging() throws Exception {
+
+        Criteria criteria = new Criteria();
+        criteria.setPerPageNum(20);
+        criteria.setPage(1);
+
+        List<ReplyVO> replies = replyDAO.listPaging(999, criteria);
+
+        for (ReplyVO reply : replies) {
+        	log.info(reply.getReplyNo() + " : " + reply.getReplyText());
+        }
 
     }
 

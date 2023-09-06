@@ -1,6 +1,8 @@
 package com.spring.mvcboard.reply.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.mvcboard.commons.paging.Criteria;
+import com.spring.mvcboard.commons.paging.PageMaker;
 import com.spring.mvcboard.reply.domain.ReplyVO;
 import com.spring.mvcboard.reply.service.ReplyService;
 
@@ -79,6 +83,41 @@ public class ReplyController {
             e.printStackTrace();
             entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+        return entity;
+    }
+    
+    // Reply 페이징 처리
+    @RequestMapping(value = "/{articleNo}/{page}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> listPaging(@PathVariable("articleNo") Integer articleNo,
+                                                          @PathVariable("page") Integer page) {
+
+        ResponseEntity<Map<String, Object>> entity = null;
+
+        try {
+
+            Criteria criteria = new Criteria();
+            criteria.setPage(page);
+
+            List<ReplyVO> replies = replyService.getRepliesPaging(articleNo, criteria);
+            int repliesCount = replyService.countReplies(articleNo);
+
+            PageMaker pageMaker = new PageMaker();
+            pageMaker.setCriteria(criteria);
+            pageMaker.setTotalCount(repliesCount);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("replies", replies);
+            map.put("pageMake", pageMaker);
+
+            entity = new ResponseEntity<>(map, HttpStatus.OK);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            entity = new ResponseEntity<>(HttpStatus.OK);
+
+        }
+
         return entity;
     }
 
