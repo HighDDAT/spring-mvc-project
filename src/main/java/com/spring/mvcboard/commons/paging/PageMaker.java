@@ -10,18 +10,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
 public class PageMaker {
 
-    private int totalCount;
+	private int totalCount;
     private int startPage;
     private int endPage;
     private boolean prev;
     private boolean next;
-    
-    // 페이지 번호 개수
+
     private int displayPageNum = 10;
 
     private Criteria criteria;
@@ -34,22 +30,25 @@ public class PageMaker {
         this.totalCount = totalCount;
         calcData();
     }
-    
-    // 게시글의 전체 개수가 정해지면 메서드 호출해서 계산
+
     private void calcData() {
+
         endPage = (int) (Math.ceil(criteria.getPage() / (double) displayPageNum) * displayPageNum);
+
         startPage = (endPage - displayPageNum) + 1;
 
         int tempEndPage = (int) (Math.ceil(totalCount / (double) criteria.getPerPageNum()));
+
         if (endPage > tempEndPage) {
             endPage = tempEndPage;
         }
 
         prev = startPage == 1 ? false : true;
+
         next = endPage * criteria.getPerPageNum() >= totalCount ? false : true;
+
     }
-    
-    // UriComponentsBuilder
+
     public String makeQuery(int page) {
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .queryParam("page", page)
@@ -58,9 +57,7 @@ public class PageMaker {
 
         return uriComponents.toUriString();
     }
-    
-    // 페이지 이동 URI 수정
-    // 검색한 게시글의 목록 정보를 유지
+
     public String makeSearch(int page) {
 
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
@@ -83,5 +80,66 @@ public class PageMaker {
         } catch (UnsupportedEncodingException e) {
             return "";
         }
+    }
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public int getStartPage() {
+        return startPage;
+    }
+
+    public void setStartPage(int startPage) {
+        this.startPage = startPage;
+    }
+
+    public int getEndPage() {
+        return endPage;
+    }
+
+    public void setEndPage(int endPage) {
+        this.endPage = endPage;
+    }
+
+    public boolean isPrev() {
+        return prev;
+    }
+
+    public void setPrev(boolean prev) {
+        this.prev = prev;
+    }
+
+    public boolean isNext() {
+        return next;
+    }
+
+    public void setNext(boolean next) {
+        this.next = next;
+    }
+
+    public int getDisplayPageNum() {
+        return displayPageNum;
+    }
+
+    public void setDisplayPageNum(int displayPageNum) {
+        this.displayPageNum = displayPageNum;
+    }
+
+    public Criteria getCriteria() {
+        return criteria;
+    }
+
+    @Override
+    public String toString() {
+        return "PageMaker{" +
+                "totalCount=" + totalCount +
+                ", startPage=" + startPage +
+                ", endPage=" + endPage +
+                ", prev=" + prev +
+                ", next=" + next +
+                ", displayPageNum=" + displayPageNum +
+                ", criteria=" + criteria +
+                '}';
     }
 }

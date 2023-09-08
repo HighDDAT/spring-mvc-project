@@ -29,8 +29,8 @@ public class ReplyDAOTests {
         for (int i = 1; i <= 100; i++) {
             ReplyVO replyVO = new ReplyVO();
             replyVO.setArticleNo(999);
-            replyVO.setReplyText(i+"번째 댓글입니다..");
-            replyVO.setReplyWriter("user0"+(i%10));
+            replyVO.setReplyText(i+"번째 댓글 테스트");
+            replyVO.setReplyWriter("tester"+(i%10));
             replyDAO.create(replyVO);
         }
 

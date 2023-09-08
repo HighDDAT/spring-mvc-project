@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.mvcboard.article.persistence.ArticleDAO;
 import com.spring.mvcboard.commons.paging.Criteria;
 import com.spring.mvcboard.reply.domain.ReplyVO;
 import com.spring.mvcboard.reply.persistence.ReplyDAO;
@@ -14,10 +15,12 @@ import com.spring.mvcboard.reply.persistence.ReplyDAO;
 public class ReplyServiceImpl implements ReplyService {
 	
 	private final ReplyDAO replyDAO;
+	private final ArticleDAO articleDAO;
 
     @Inject
-    public ReplyServiceImpl(ReplyDAO replyDAO) {
+    public ReplyServiceImpl(ReplyDAO replyDAO, ArticleDAO articleDAO) {
         this.replyDAO = replyDAO;
+        this.articleDAO = articleDAO;
     }
 
     @Override
