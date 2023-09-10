@@ -56,6 +56,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						  <a href="${path}/article/paging/search/read${pageMaker.makeSearch(pageMaker.criteria.page)}&articleNo=${article.articleNo}">
 						    ${article.title}
 						  </a>
+						  <span class="badge bg-teal"><i class="fa fa-comment-o"></i> + ${article.replyCnt}</span>
 						</td>
 					    <td>${article.writer}</td>
 					    <td><fmt:formatDate value="${article.regDate}" pattern="yyyy-MM-dd a HH:mm"/></td>

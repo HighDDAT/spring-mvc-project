@@ -17,5 +17,6 @@ public class ArticleVO {
     private String writer;
     private Timestamp regDate;
     private int viewCnt;
+    private int replyCnt;
     
 }

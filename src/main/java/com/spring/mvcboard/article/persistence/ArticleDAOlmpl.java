@@ -1,6 +1,9 @@
 package com.spring.mvcboard.article.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -79,4 +82,19 @@ public class ArticleDAOlmpl implements ArticleDAO {
 	    return sqlSession.selectOne(NAMESPACE + ".countSearchedArticles", searchCriteria);
 	}
 
+	// 트랜잭션 처리
+	@Override
+	public void updateViewCnt(Integer articleNo) throws Exception {
+	    sqlSession.update(NAMESPACE + ".updateViewCnt", articleNo);
+	}
+	
+	@Override
+	public void updateReplyCnt(Integer articleNo, int amount) throws Exception {
+
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("articleNo", articleNo);
+	    paramMap.put("amount", amount);
+
+	    sqlSession.update(NAMESPACE + ".updateReplyCnt",paramMap);
+	}
 }

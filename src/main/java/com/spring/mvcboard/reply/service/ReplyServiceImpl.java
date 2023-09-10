@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.mvcboard.article.persistence.ArticleDAO;
 import com.spring.mvcboard.commons.paging.Criteria;
@@ -28,9 +29,11 @@ public class ReplyServiceImpl implements ReplyService {
         return replyDAO.list(articleNo);
     }
 
+    @Transactional
     @Override
     public void addReply(ReplyVO replyVO) throws Exception {
         replyDAO.create(replyVO);
+        articleDAO.updateReplyCnt(replyVO.getArticleNo(), 1); // 댓글 1씩 증가
     }
 
     @Override
@@ -38,9 +41,13 @@ public class ReplyServiceImpl implements ReplyService {
         replyDAO.update(replyVO);
     }
 
+    @Transactional
     @Override
     public void removeReply(Integer replyNo) throws Exception {
-        replyDAO.delete(replyNo);
+    	int articleNo = replyDAO.getArticleNo(replyNo); // 댓글의 게시물 번호 조회
+        replyDAO.delete(replyNo); // 댓글 삭제
+        articleDAO.updateReplyCnt(articleNo, -1); // 댓글 1씩 감소
+        
     }
     
     // Reply 페이징
