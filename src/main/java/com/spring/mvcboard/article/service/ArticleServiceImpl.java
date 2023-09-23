@@ -12,20 +12,30 @@ import com.spring.mvcboard.article.domain.ArticleVO;
 import com.spring.mvcboard.article.persistence.ArticleDAO;
 import com.spring.mvcboard.commons.paging.Criteria;
 import com.spring.mvcboard.commons.paging.SearchCriteria;
+import com.spring.mvcboard.upload.persistence.ArticleFileDAO;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
 	
 	private final ArticleDAO articleDAO;
+	private final ArticleFileDAO articleFileDAO;
 
 	@Inject
-	public ArticleServiceImpl(ArticleDAO articleDAO) {
+	public ArticleServiceImpl(ArticleDAO articleDAO, ArticleFileDAO articleFileDAO) {
 		this.articleDAO = articleDAO;
+		this.articleFileDAO = articleFileDAO;
 	}
 
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public void create(ArticleVO articleVO) throws Exception {
 		articleDAO.create(articleVO);
+        String[] files = articleVO.getFiles();
+
+        if (files == null)
+            return;
+        for (String fileName : files)
+            articleFileDAO.addFile(fileName);
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED)

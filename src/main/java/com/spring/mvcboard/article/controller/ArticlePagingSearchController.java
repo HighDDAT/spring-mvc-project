@@ -30,7 +30,23 @@ public class ArticlePagingSearchController {
 		this.articleService = articleService;
 	}
 	
+	// write
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+    public String writeGET(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria) throws Exception {
 
+        return "article/search/write";
+    }
+
+    @RequestMapping(value = "/write", method = RequestMethod.POST)
+    public String writePOST(ArticleVO articleVO,
+                            RedirectAttributes redirectAttributes) throws Exception {
+
+        articleService.create(articleVO);
+        redirectAttributes.addFlashAttribute("msg", "regSuccess");
+
+        return "redirect:/article/paging/search/list";
+    }
+	
 	// search list
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(@ModelAttribute("searchCriteria") SearchCriteria searchCriteria,
